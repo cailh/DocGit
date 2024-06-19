@@ -1,0 +1,27 @@
+linux gtk+安装
+
+sudo apt-get update
+sudo apt-get install libgtk2.0-0 libgtk2.0-dev
+
+
+#include <gtk/gtk.h>
+ 
+int main(int argc, char *argv[]) {
+    gtk_init(&argc, &argv);
+ 
+    GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title(GTK_WINDOW(window), "Hello GTK+");
+    gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
+ 
+    g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+ 
+    gtk_widget_show_all(window);
+    gtk_main();
+ 
+    return 0;
+}
+保存这段代码到一个文件中，比如hello-gtk.c，然后编译运行：
+
+gcc `pkg-config --cflags gtk+-2.0` -o hello-gtk hello-gtk.c `pkg-config --libs gtk+-2.0`
+
+
